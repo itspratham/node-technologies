@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    #nav #logIn {
+                    font-size: 1em;
+                    font-weight: 400;
+                    color: white;
+                    right: 0;
+                    top :  30px;
+                    background-color: red;
+                    margin: 20px;
+                    float: right;
+                    text-align: center;
+                    padding: 10px 40px;
+                    margin-top: -60px;
+                    margin-bottom: 60px;
+            }
+    </style>
+    <meta charset="UTF-8">
+    <title>CRUD</title>
+    <link rel = "icon" href =
+    "/static/crud/media/images.png"
+          type="image/*" sizes="16x16">
+    <head>
+    <img src="/static/crud/media/images.png"
+         width =200  height=180 style="display: block;margin-left: auto;
+         margin-right: auto ;margin-top: 20px; margin-bottom:-60px;
+         width: 20%; height=35%; "></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    {% include "crud/logout.html" %}
+</head>
+<div class="container-fluid" style="padding: 80px 550px">
+    <form action="{% url 'home-view' %}" method="post" id="form-product" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" id="name"
+                   placeholder="Please enter your product name" required>
+        </div>
+        <div class="form-group">
+                <label for ="myfile">Product photo</label>
+                <input type="file" name="myfile" class="form-control"  id="myfile"
+                      accept="image/*" placeholder="Please upload product's pic" required>
+         </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea rows="4" cols="50" name="description" class="form-control"
+                      id="description" required></textarea>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="laptopid"
+                   name="typeofproduct" value="laptop" form="form-product" checked="checked">
+            <label class="form-check-label" for="laptopid" form="laptop-form">Laptop</label>
+            <input type="radio" class="form-check-input" id="mobileid"
+                   form="form-product"
+                   name="typeofproduct" value="mobile">
+            <label for="mobileid" class="form-check-label" form="mobile-form">Mobile</label>
+        <div class="form-group" id="laptop-form">
+            <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="processor-laptop">Processor</label>
+                <input type="text" name="processorlaptop" class="form-control"
+                       id="processor-laptop"
+                       placeholder="Please enter the processor here">
+            </div>
+            <div class="form-group">
+                <label for="ram-laptop">RAM Size in (GB)</label>
+                <input type="number" name="ramlaptop" class="form-control"
+                       id="ram-laptop"
+                       placeholder="Enter the RAM Size in GB">
+            </div>
+            <div class="form-group">
+                <label for="hdlaptop">Hard drive capacity</label>
+                <input type="number" name="hdlaptop" class="form-control"  id="hdlaptop"
+                       placeholder="Please enter the HD size">
+            </div>
+                </form>
+        </div>
+        <div class="form-group" id="mobile-form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="processor-mobile">Processor</label>
+                    <input type="text" name="processormobile" class="form-control" id="processor-mobile"
+                           placeholder="Please enter your name here">
+                </div>
+                <div class="form-group">
+                    <label for="ram-mobile">RAM Size in (GB)</label>
+                    <input type="number" name="rammobile" class="form-control"
+                           id="ram-mobile"
+                           placeholder="Enter the RAM Size in GB">
+                </div>
+                <div class="form-group">
+                    <label for="screensize">Screen Size</label>
+                    <input type="text" name="screensize" class="form-control"  id="screensize"
+                           placeholder="Please enter the price">
+                </div>
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" name="color" class="form-control"  id="color"
+                           placeholder="Please enter the color">
+                </div>
+            </form>
+        </div>
+        </div>
+
+        <button type="submit" form="form-product" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script type="text/javascript">
+          document.getElementById('mobile-form').style.display = 'none';
+          document.getElementById('laptopid').addEventListener('click', () => {
+          document.getElementById('mobile-form').style.display = 'none';
+          document.getElementById('laptop-form').style.display = 'block';
+        })
+        document.getElementById('mobileid').addEventListener('click', () => {
+          document.getElementById('laptop-form').style.display = 'none';
+          document.getElementById('mobile-form').style.display = 'block';
+        })
+    </script>
+</body>
+</html>
